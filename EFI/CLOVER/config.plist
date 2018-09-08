@@ -113,7 +113,7 @@
 	<key>Boot</key>
 	<dict>
 		<key>Arguments</key>
-		<string>dart=0 darkwake=no kext-dev-mode=1</string>
+		<string>dart=0 kext-dev-mode=1 -disablegfxfirmware darkwake=no abm_firstpolldelay=16000</string>
 		<key>Debug</key>
 		<false/>
 		<key>DefaultVolume</key>
@@ -141,7 +141,7 @@
 		<key>Audio</key>
 		<dict>
 			<key>Inject</key>
-			<string>3</string>
+			<integer>3</integer>
 			<key>ResetHDA</key>
 			<true/>
 		</dict>
@@ -201,7 +201,7 @@
 			<key>ATI</key>
 			<false/>
 			<key>Intel</key>
-			<true/>
+			<false/>
 			<key>NVidia</key>
 			<false/>
 		</dict>

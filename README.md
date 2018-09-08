@@ -8,11 +8,12 @@ Surface Pro 4 自用黑苹果文件整理，还有很多小问题，不建议日
 ## 注意事项
 1. 10.13 后不再需要 patch-nvme 补丁。
 2. 在安装或更新系统时，需要把 ig-platform-id 改成一个无效 id（0x12345678），否则会卡 AppleIntelSKLGraphicsFramebuffer。成功进入系统后再将修改过的 AppleIntelSKLGraphicsFramebuffer.kext 文件放入S/L/E下，然后修复缓存即可。
-3. CodecCommander 须安装在 S/L/E 目录下，若放在 EFI/kexts下会导致系统更新时无限重启。
-4. 我在 config.plist 的 SMBIOS 中修复了内存频率显示不正确的问题，如果不是 8G 内存，需要手动修改成自己的配置。
+3. OTA 升级时会报错（macOS could not be installed on your computer），故暂时只支持全新安装或下载完整系统镜像进行升级。
+4. CodecCommander 须安装在 S/L/E 目录下，若放在 EFI/kexts下会导致系统更新时无限重启。
+5. 我在 config.plist 的 SMBIOS 中修复了内存频率显示不正确的问题，如果不是 8G 内存，需要手动修改成自己的配置。
 
 ## 正常工作
-1. 显卡正常驱动，HiDPI 正常开启。~~（新版 IntelGraphicsFixup.kext 可直接驱动核显，无需 FakeID 和注入 ig-platform-id）~~ 目前 IntelGraphicsFixup.kext 的最新版本 1.2.7 无法在 10.3.5 系统下正常工作，而 BarbaraPalvin 大神的 IntelGraphicsDVMTFixup 不能驱动内屏，外接显示器正常驱动，故还是用回最原始的替换 S/L/E 目录下的 AppleIntelSKLGraphicsFramebuffer.kext 方法。
+1. 显卡正常驱动，HiDPI 正常开启。目前 IntelGraphicsFixup 项目已经并入 WhateverGreen 中，故添加 WhateverGreen.kext 即可直接驱动显卡，无需再注入 ig-platform-id。
 2. 亮度调节正常。
 3. 声卡 ALC298 正常使用（使用 AppleALC.kext，并在 config.plist 中注入声卡 id 为 3 即可驱动），使用 CodecCommander.kext 解决唤醒无声问题。
 4. TF卡正常识别（使用 GenericUSBXHCI.kext 可直接驱动）。
@@ -28,9 +29,14 @@ Surface Pro 4 自用黑苹果文件整理，还有很多小问题，不建议日
 4. 电量无法正常显示（RehabMan 的 Surface Pro 4 DSDT Patch 在 10.13 下无法正常编译通过）。
 5. 合盖可睡眠，但唤醒后会进入一个“没睡醒”的状态（保持为最低亮度，且隔一段时间就会自动睡眠），该问题在 10.12 时就已存在，至今没找到解决方法。
 6. 偶尔会有一些画面撕裂和花屏的问题（如刚进入系统时），很快能恢复正常，不影响正常使用。
-7. ~~升级至 10.13.4 后，进入系统会出现屏幕泛白问题，个人推测是显卡驱动的问题。~~
+7. 进入系统会出现屏幕泛白问题，个人推测是显卡驱动的问题。
 
 ## 更新日志
+#### 2018-09-09:
+- 支持 10.13.6 系统。
+- 更新 Lilu 至 1.2.6 版本。
+- 添加 WhateverGreen.kext。
+
 #### 2018-06-06:
 - 支持 10.13.5 系统。
 - 更新 Lilu 至 1.2.4 版本。
